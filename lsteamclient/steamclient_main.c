@@ -320,9 +320,9 @@ static BOOL get_env_win(const WCHAR *name, char *value, unsigned int size)
 
 static int load_steamclient(void)
 {
-    char steam_app_id[4096], ignore_child_processes[4096];
     struct steamclient_init_params params = {.g_tmppath = temp_path_buffer};
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     if (!get_env_win(u"SteamAppId", steam_app_id, sizeof(steam_app_id)))
         params.steam_app_id_unset = TRUE;
@@ -342,6 +342,13 @@ static int load_steamclient(void)
 >>>>>>> f2fa9ed3 (Revert "lsteamclient: Use getenv() in load_steamclient().")
     else
         params.ignore_child_processes = ignore_child_processes;
+=======
+    if (!(params.steam_app_id = getenv("SteamAppId")))
+        params.steam_app_id_unset = TRUE;
+
+    if (!(params.ignore_child_processes = getenv("IgnoreChildProcesses")))
+        params.ignore_child_processes_unset = TRUE;
+>>>>>>> b86aa755 (lsteamclient: Use getenv() in load_steamclient().)
 
     if (STEAMCLIENT_CALL( steamclient_init, &params )) return 0;
     return 1;
