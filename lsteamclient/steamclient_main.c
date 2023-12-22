@@ -323,6 +323,7 @@ static int load_steamclient(void)
     char steam_app_id[4096], ignore_child_processes[4096];
     struct steamclient_init_params params = {.g_tmppath = temp_path_buffer};
 
+<<<<<<< HEAD
     if (!get_env_win(u"SteamAppId", steam_app_id, sizeof(steam_app_id)))
         params.steam_app_id_unset = TRUE;
     else
@@ -330,6 +331,15 @@ static int load_steamclient(void)
 
     if (!get_env_win(u"IgnoreChildProcesses", ignore_child_processes, sizeof(ignore_child_processes)))
         params.ignore_child_processes_unset = TRUE;
+=======
+    if (!GetEnvironmentVariableA("SteamAppId", steam_app_id, ARRAY_SIZE(steam_app_id)))
+        params.steam_app_id_unset = GetLastError() == ERROR_ENVVAR_NOT_FOUND;
+    else
+        params.steam_app_id = steam_app_id;
+
+    if (!GetEnvironmentVariableA("IgnoreChildProcesses", ignore_child_processes, ARRAY_SIZE(ignore_child_processes)))
+        params.ignore_child_processes_unset = GetLastError() == ERROR_ENVVAR_NOT_FOUND;
+>>>>>>> f2fa9ed3 (Revert "lsteamclient: Use getenv() in load_steamclient().")
     else
         params.ignore_child_processes = ignore_child_processes;
 
