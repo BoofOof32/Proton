@@ -1020,12 +1020,18 @@ def default_compat_config():
                 #affected by CW bug 19741
                 "1017900", #Age of Empires: Definitive Edition
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
                 #affected by CW bug 23184
                 "2229490", #Iragon: Prologue
                 "1522260", #Iragon: Prologue 18+
 >>>>>>> 500d6608 (proton: Added Iragon: Prologue 18+ (1522260) to MFDXGI hack)
+=======
+
+                #affected by CW bug 23184
+                "2229490", #Iragon: Prologue
+>>>>>>> 44c58e08 (proton: Add Iragon: Prologue (2229490) to MFDXGI manager hack.)
                 ]:
             ret.add("nomfdxgiman")
 
