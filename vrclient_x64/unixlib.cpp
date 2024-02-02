@@ -76,6 +76,8 @@ NTSTATUS vrclient_init( void *args )
     struct vrclient_init_params *params = (struct vrclient_init_params *)args;
     static void *vrclient;
 
+    params->_ret = false;
+
     if (vrclient)
     {
         params->_ret = true;
@@ -85,14 +87,14 @@ NTSTATUS vrclient_init( void *args )
     if (!(vrclient = dlopen( params->unix_path, RTLD_NOW )))
     {
         TRACE( "unable to load %s\n", params->unix_path );
-        return -1;
+        return 0;
     }
 
 #define LOAD_FUNC( x )                                      \
     if (!(p_##x = (decltype(p_##x))dlsym( vrclient, #x )))  \
     {                                                       \
         ERR( "unable to load " #x "\n" );                   \
-        return -1;                                          \
+        return 0;                                          \
     }
 
     LOAD_FUNC( HmdSystemFactory );
@@ -100,7 +102,13 @@ NTSTATUS vrclient_init( void *args )
 
 #undef LOAD_FUNC
 
+<<<<<<< HEAD
     load_vk_unwrappers( params->winevulkan );
+=======
+    if (!load_vk_unwrappers( params->winevulkan ))
+        return 0;
+
+>>>>>>> 250242f6 (vrclient: Return STATUS_SUCCESS from vrclient_init() on initialization failures.)
     params->_ret = true;
     return 0;
 }
