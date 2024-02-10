@@ -218,6 +218,7 @@ UNIX_FUNCS = [
     'vrclient_init',
     'vrclient_HmdSystemFactory',
     'vrclient_VRClientCoreFactory',
+    'vrclient_unload',
 ]
 
 MANUAL_METHODS = {
